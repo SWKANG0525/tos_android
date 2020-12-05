@@ -1,8 +1,10 @@
 package deu.cse.tos;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,24 +21,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class ShowQnAActivity extends AppCompatActivity {
-    private Context mContext = this;
+    private Context context = this;
     private static final int ACTIVITY_NUM = 2;
     private static final String TAG = "ShowQnAActivity";
-    private RecyclerView recyclerView;
-    private MyHashAdapter hashAdapter;
-    private Button btn_arrow;
     private Toolbar toolbar;
     private ActionBar actionBar;
     private String question;
     private String answer;
+    private String hashtag;
     private TextView tv_question;
     private TextView tv_answer;
+    private TextView tv_hash;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Window window = getWindow();
@@ -54,15 +57,19 @@ public class ShowQnAActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_qn_a);
         this.question = (String) getIntent().getSerializableExtra("question");
         this.answer = (String) getIntent().getSerializableExtra("answer");
+        this.hashtag = (String) getIntent().getSerializableExtra("hashtag");
 
         this.tv_question = (TextView)findViewById(R.id.tv_question_intent);
         this.tv_answer = (TextView)findViewById(R.id.tv_answer_intent);
+        this.tv_hash = (TextView)findViewById(R.id.tv_hashtag_intent);
 
-        this.tv_question.setText(this.question);
+        this.tv_question.setText("Q. " + this.question);
         this.tv_answer.setText(this.answer);
+        this.tv_hash.setText(this.hashtag);
 
         initActionBar();
     }
+
 
     public void initActionBar(){
         toolbar = findViewById(R.id.toolbar);

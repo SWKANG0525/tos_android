@@ -2,23 +2,17 @@ package deu.cse.tos;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.security.keystore.KeyNotYetValidException;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,17 +22,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,8 +64,11 @@ public class QnAFragment extends Fragment implements SwipeRefreshLayout.OnRefres
 
     private ArrayList<String> hashList = new ArrayList<>();
     private ArrayList<QnAList> qnaList = new ArrayList<>();
+    private ArrayList<QnAList> searchList = new ArrayList<>();
     private String searchData;
     private boolean isSearch;
+    private boolean isHashTag;
+    private boolean isRefresh;
 
     private Call<QnaDTO> qnADTOCall;
     HashMap<String, Object> input = new HashMap<>();
@@ -129,6 +118,8 @@ public class QnAFragment extends Fragment implements SwipeRefreshLayout.OnRefres
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         this.isSearch = false;
+        this.isHashTag = false;
+        this.isRefresh = false;
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://113.198.235.232:3000/")
@@ -158,21 +149,24 @@ public class QnAFragment extends Fragment implements SwipeRefreshLayout.OnRefres
             public void onClick(View v) {
                 searchData = searchEdit.getText().toString();
                 if (searchData != null) {
-                    Toast.makeText(context, searchData, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, searchData, Toast.LENGTH_SHORT).show();
                     isSearch = true;
                     onRefresh();
                     searchData = null;
                 } else {
                     isSearch = false;
-                    Toast.makeText(context, "no data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "no data", Toast.LENGTH_SHORT).show();
                     searchData = null;
                 }
+                searchEdit.setText("");
             }
         });
         this.btnRefresh = (ImageButton) view.findViewById(R.id.btn_refresh);
         this.btnRefresh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                isRefresh = true;
+                isHashTag = false;
                 onRefresh();
             }
         });
@@ -185,49 +179,33 @@ public class QnAFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         super.onViewCreated(view, savedInstanceState);
         Log.d("myTest", "onViewCreated");
 
-//        hashList.add("q1");
-//        hashList.add("q2");
-//        hashList.add("q3");
-//        hashList.add("testing~~~");
-//
         retrofitQnAInterface.postQnAResult(input).enqueue(new Callback<QnaDTO>() {
             @Override
             public void onResponse(Call<QnaDTO> call, Response<QnaDTO> response) {
                 Log.d("myTest", "in onResponse");
                 if (response.isSuccessful()){
                     QnaDTO data = response.body();
+                    HashSet<String> tmp = new HashSet<>();
+                    for(QnaDTO.Question items : data.getData()){
+                        qnaList.add(new QnAList(items.question_name, items.answer, items.tag));
+                        tmp.add(items.tag);
+                        hashList = new ArrayList<String>(tmp);
+                    }
 
                     Log.d("myTest_data", data.toString());
                 }
+                initHashTag(view);
+                initCard(view);
+                onRefresh();
             }
 
             @Override
             public void onFailure(Call<QnaDTO> call, Throwable t) {
                 Log.d("myTest", "Failed");
-                Log.d("throwT", Arrays.toString(t.getStackTrace()));
-                t.getStackTrace();
-                t.getSuppressed();
             }
         });
-
-        initHashTag(view);
-        initCard(view);
     }
 
-//    private void initQnAList(){
-//        qnaList.add(new QnAList("q1", "a1"));
-//        qnaList.add(new QnAList("q2", "a2"));
-//        qnaList.add(new QnAList("q3", "a3"));
-//        qnaList.add(new QnAList("q4", "a4"));
-//        qnaList.add(new QnAList("q5", "a5"));
-//    }
-
-    private void initHashTagList(){
-        hashList.add("q1");
-        hashList.add("q2");
-        hashList.add("q3");
-        hashList.add("testing~~~");
-    }
 
     private void initHashTag(View view){
         recyclerView = view.findViewById(R.id.hashtag);
@@ -258,34 +236,51 @@ public class QnAFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         @Override
         public void onClick(View v) {
             String str = (String) v.getTag();
-            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+            searchData = str;
+            isSearch = false;
+            isHashTag = true;
+            onRefresh();
         }
     };
 
     @Override
     public void onRefresh() {
-//        if(qnaList.size() > 0) {
-//            ArrayList<QnAList> tmp = new ArrayList<>();
-//            for (QnAList item : qnaList) {
-//                if (searchData != null && !item.getQuestion().equals(searchData)) {
-//                    tmp.add(item);
-//                }
-//            }
-//            for(QnAList item : tmp){
-//                qnaList.remove(item);
-//            }
-//        } else {
-//            initQnAList();
-//        }
-
         if(isSearch){
             // 검색해서 qna_list 수정
-        } else {
-            // 모든 qna_list 출력
+            if(qnaList.size() > 0) {
+                ArrayList<QnAList> tmp = new ArrayList<>();
+                for (QnAList item : qnaList) {
+                    if (searchData != null && item.getQuestion().contains(searchData)) {
+                        tmp.add(item);
+                        Log.d("search", searchList.toString());
+                    }
+                }
+                cardAdapter = new MyCardAdapter(this.context, tmp);
+                recyclerView.setAdapter(cardAdapter);
+                swipeRefreshView.setRefreshing(false);
+            }
+            isSearch = false;
+        } else if (isHashTag) {
+            if(qnaList.size() > 0) {
+                ArrayList<QnAList> tmp = new ArrayList<>();
+                for (QnAList item : qnaList) {
+                    if (item.getTag().equals(searchData)) {
+                        tmp.add(item);
+                        Log.d("hashtag", item.getTag());
+                    }
+                }
+                cardAdapter = new MyCardAdapter(this.context, tmp);
+                recyclerView.setAdapter(cardAdapter);
+                swipeRefreshView.setRefreshing(false);
+            }
+            isHashTag = false;
         }
-
-        cardAdapter = new MyCardAdapter(this.context, qnaList);
-        recyclerView.setAdapter(cardAdapter);
-        swipeRefreshView.setRefreshing(false);
+        else {
+            // 모든 qna_list 출력
+            cardAdapter = new MyCardAdapter(this.context, qnaList);
+            recyclerView.setAdapter(cardAdapter);
+            swipeRefreshView.setRefreshing(false);
+        }
     }
 }

@@ -192,7 +192,6 @@ public class AddBrushListActivity extends AppCompatActivity {
             rb3.setTextColor(getResources().getColor(R.color.white));
         }
         else if(previousIntent.getStringExtra("itemName").equals(rb4.getTag().toString())) {
-            Log.d("ffdsa","FDSaf");
             rg.check(R.id.radioButton4);
             rb4.setTextColor(getResources().getColor(R.color.white));
         }

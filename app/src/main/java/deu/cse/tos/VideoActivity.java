@@ -25,13 +25,10 @@ import java.util.TimerTask;
 public class VideoActivity extends AppCompatActivity {
     int counter = 0;
     ProgressBar videobar;
-<<<<<<< HEAD
     TextView textView;
-=======
     int toggle = 1;
 
-    @SuppressLint("ClickableViewAccessibility")
->>>>>>> 900bcd5f39017cfbabbd4a850bb88fbae92caaae
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -54,13 +51,9 @@ public class VideoActivity extends AppCompatActivity {
         prog();
 
         Intent i = new Intent(this, SelfCheckActivity.class);
-<<<<<<< HEAD
 
         Uri uri = Uri.parse("android.resource://deu.cse.tos/" + R.raw.tooth_video);
-=======
-//        TextView textView = (TextView) findViewById(R.id.video_mode_txt);
-        Uri uri = Uri.parse("android.resource://deu.cse.tos/" + R.raw.video_test1);
->>>>>>> 900bcd5f39017cfbabbd4a850bb88fbae92caaae
+
         VideoView videoView = (VideoView) findViewById(R.id.videoview);
         videoView.setVideoURI(uri);
 

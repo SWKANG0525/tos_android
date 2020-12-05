@@ -44,8 +44,6 @@
             tools:visibility="visible" />
 
 
-<<<<<<< HEAD
-=======
 
 <!--    <TextView-->
 <!--        android:id="@+id/video_mode_txt"-->
@@ -70,5 +68,4 @@
 <!--        app:layout_constraintVertical_bias="0.911" />-->
 
 
->>>>>>> 900bcd5f39017cfbabbd4a850bb88fbae92caaae
 </androidx.constraintlayout.widget.ConstraintLayout>

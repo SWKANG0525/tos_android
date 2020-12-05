@@ -8,37 +8,58 @@
     android:layout_gravity="right|center_vertical"
     android:orientation="vertical">
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/action_oral_supplies"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:layout_weight="0.5"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/action_oral_supplies"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginTop="40dp"-->
+    <!--        android:layout_weight="0.5"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/img_btn_arrow"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="23.8dp"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="#FFFFFF"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            app:srcCompat="@drawable/arrow_chevron_big_left" />-->
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/img_btn_arrow"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="23.8dp"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:background="#FFFFFF"-->
+    <!--            android:scaleType="fitCenter"-->
+    <!--            app:srcCompat="@drawable/arrow_chevron_big_left" />-->
 
-<!--        <TextView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="23.8dp"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:layout_weight="8"-->
-<!--            android:freezesText="false"-->
-<!--            android:gravity="center"-->
-<!--            android:text="@string/action_oralsupplies" />-->
+    <!--        <TextView-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="23.8dp"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:layout_weight="8"-->
+    <!--            android:freezesText="false"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="@string/action_oralsupplies" />-->
 
-<!--    </LinearLayout>-->
+    <!--    </LinearLayout>-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/action_bar_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/oral_list"
+            android:textSize="20dp"></TextView>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

@@ -34,6 +34,7 @@ public class SelfCheckActivity extends AppCompatActivity implements View.OnClick
     private CheckBox check1;
     private CheckBox check3;
     private CheckBox check4;
+    private  TextView tv_name;
 
 
     @Override
@@ -48,7 +49,7 @@ public class SelfCheckActivity extends AppCompatActivity implements View.OnClick
             window.addFlags(flags);
         }
         View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selfcheck);
 
@@ -58,7 +59,8 @@ public class SelfCheckActivity extends AppCompatActivity implements View.OnClick
         selftext1 = (TextView) findViewById(R.id.selfcheck1);
         selftext3 = (TextView) findViewById(R.id.selfcheck3);
         selftext4 = (TextView) findViewById(R.id.selfcheck4);
-
+        tv_name = findViewById(R.id.tv_name);
+        tv_name.setText(UserAccount.getInstance().getNickName());
         Intent i = new Intent(this, CheckResultActivity.class);
         selftext1.setOnClickListener(this);
         selftext3.setOnClickListener(this);
@@ -146,5 +148,10 @@ public class SelfCheckActivity extends AppCompatActivity implements View.OnClick
                 break;
 
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }

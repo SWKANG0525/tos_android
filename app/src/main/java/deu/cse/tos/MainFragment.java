@@ -1,6 +1,7 @@
 package deu.cse.tos;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -16,6 +17,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +34,13 @@ import java.util.HashMap;
  * Use the {@link MainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment {
-
+public class MainFragment extends Fragment implements MainActivity.OnBackPressedListener{
+    MainFragment mainFragment;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private  MainActivity activity;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -46,6 +48,9 @@ public class MainFragment extends Fragment {
     public MainFragment() {
         // Required empty public constructor
 
+    }
+    public static MainFragment newInstance() {
+        return new MainFragment();
     }
 
     // TODO: Rename and change types and number of parameters
@@ -104,11 +109,7 @@ public class MainFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
-
-
+        activity = (MainActivity)getActivity();
     }
 
 
@@ -122,7 +123,8 @@ public class MainFragment extends Fragment {
 
             public void onClick(View view) {
                 //startActivity(i);
-                startActivity(testIntent);
+                ((MainActivity)getActivity()).replaceFragment(ModeFragment.newInstance());
+
             }
         });
 
@@ -144,6 +146,8 @@ public class MainFragment extends Fragment {
 
                     textview3.setText(data.getNickname());
                     textview4.setText("Level "+data.getLevel());
+
+                    UserAccount.getInstance().setNickName(data.getNickname());
                     Log.d("UserDTO",data.toString());
                 }
             }
@@ -153,14 +157,11 @@ public class MainFragment extends Fragment {
             }
         });
 
-
         retrofitService.postToothResult(input).enqueue(new Callback<ToothInfoDTO>() {
             @Override
             public void onResponse(Call<ToothInfoDTO> call, Response<ToothInfoDTO> response) {
                 if(response.isSuccessful()) {
                     ToothInfoDTO data = response.body();
-
-
                     TextView textview5 = getActivity().findViewById(R.id.textView5);
                     ImageView imageView4 = getActivity().findViewById(R.id.imageView4);
                     ImageView imageView5 = getActivity().findViewById(R.id.imageView5);
@@ -171,7 +172,7 @@ public class MainFragment extends Fragment {
                         textview5.setText(data.getDifftime()+" 시간 전에 양치했어요");
                     }
                     else {
-                        textview5.setText("아직까지 양치기록이 없어요");
+                        textview5.setText("방금 전 양치했어요");
                     }
 
                     if(!data.getMorning_time().equals("0")) {
@@ -208,15 +209,27 @@ public class MainFragment extends Fragment {
 
             }
         });
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        mainFragment = new MainFragment();
         initActivity();
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
-    
-}
+
+    @Override
+    public void onBack() {
+        // 한번 뒤로가기 버튼을 눌렀다면 Listener 를 null 로 해제해줍니다.
+        activity.setOnBackPressedListener(null);
+
+   }
+    // Fragment 호출 시 반드시 호출되는 오버라이드 메소드입니다.
+    @Override
+    // 혹시 Context 로 안되시는분은 Activity 로 바꿔보시기 바랍니다.
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.e("Other", "onAttach()");
+        ((MainActivity)context).setOnBackPressedListener(this);
+    }}

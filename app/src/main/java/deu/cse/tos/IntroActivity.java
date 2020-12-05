@@ -18,7 +18,7 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         public void run() {// 4초뒤에 다음화면(MainActivity)으로 넘어가기 Handler 사용
             Intent intentLogin = new Intent(getApplicationContext(), LoginActivity.class);
-            Intent intentNotLogin = new Intent(getApplicationContext(), NotLoginActivity.class);
+            //Intent intentNotLogin = new Intent(getApplicationContext(), NotLoginActivity.class);
             startActivity(intentLogin); // 다음화면으로 넘어가기
             //startActivity(intentNotLogin);
             finish(); // Activity 화면 제거

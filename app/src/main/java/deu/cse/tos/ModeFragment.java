@@ -35,6 +35,10 @@ public class ModeFragment extends Fragment {
     private ImageButton button2;
     private Intent intent1;
     private Intent intent2;
+    public static ModeFragment newInstance() {
+        return new ModeFragment();
+    }
+
     public ModeFragment() {
         // Required empty public constructor
     }
@@ -50,7 +54,7 @@ public class ModeFragment extends Fragment {
             window.addFlags(flags);
         }
         View decorView = getActivity().getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
     /**
      * Use this factory method to create a new instance of

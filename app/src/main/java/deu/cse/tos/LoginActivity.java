@@ -54,10 +54,11 @@ public class LoginActivity extends AppCompatActivity {
             window.addFlags(flags);
         }
         View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         getHashKey();
         KakaoSdk.init(this, "1c11ae1b9e8f2cfbeb1676908dfcd2da");
         init_activity();
@@ -127,7 +128,9 @@ public class LoginActivity extends AppCompatActivity {
                                                                 @Override
                                                                 public void onResponse(Call<CheckResult> call, Response<CheckResult> response) {
                                                                     Log.d("Signup","회원가입 성공");
+
                                                                     startActivity(i);
+                                                                    finish();
 
                                                                 }
 
@@ -143,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         else {
                                                             Log.d("Else","else");
                                                             startActivity(i);
+                                                            finish();
 
                                                         }
 
@@ -178,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 Log.d("TAG", "로그인 성공");
                                 startActivity(i);
+                                finish();
 
                                 // 사용자 정보 요청
                                 UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {

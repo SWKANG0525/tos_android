@@ -66,7 +66,7 @@ public class TimerActivity extends AppCompatActivity {
             window.addFlags(flags);
         }
         View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
 
         super.onCreate(savedInstanceState);
@@ -336,6 +336,11 @@ public class TimerActivity extends AppCompatActivity {
     public void go_start(){
         setTime();
         Log.d("ProgressTest", "setTime = " + setTime);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }
 

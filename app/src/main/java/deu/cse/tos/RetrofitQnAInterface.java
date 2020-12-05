@@ -14,5 +14,5 @@ import retrofit2.http.POST;
 public interface RetrofitQnAInterface {
     @FormUrlEncoded
     @POST("qna/select_qnalist")
-    Call<JsonObject> postQnAResult(@FieldMap HashMap<String, Object> param);
+    Call<QnaDTO> postQnAResult(@FieldMap HashMap<String, Object> param);
 }

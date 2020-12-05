@@ -2,31 +2,43 @@ package deu.cse.tos;
 
 import com.google.gson.annotations.SerializedName;
 
-public class QnADTO {
-    @SerializedName("question_name")
-    private String question_name;
+import java.util.List;
 
-    @SerializedName("answer")
-    private String answer;
+public class QnaDTO {
+    @SerializedName("result")
+    public List<Question> data = null;
 
-    @SerializedName("tag")
-    private String tag;
+    public List<Question> getData() {
+        return data;
+    }
 
-    public String getAnswer() { return answer; }
-    public void setAnswer(String answer) { this.answer = answer; }
+    public void setData(List<Question> data) {
+        this.data = data;
+    }
 
-    public String getQuestion_name() { return question_name; }
-    public void setQuestion_name(String question_name) { this.question_name = question_name; }
+    public class Question {
 
-    public String getTag() { return tag; }
-    public void setTag(String tag) { this.tag = tag; }
+        @SerializedName("question_name")
+        public String question_name;
+        @SerializedName("answer")
+        public String answer;
+        @SerializedName("tag")
+        public String tag;
+
+        @Override
+        public String toString() {
+            return "Question{" +
+                    "question_name='" + question_name + '\'' +
+                    ", answer='" + answer + '\'' +
+                    ", tag='" + tag + '\'' +
+                    '}';
+        }
+    }
 
     @Override
     public String toString() {
-        return "QnADTO{" +
-                "question_name" + question_name + '\'' +
-                ", answer" + answer + '\'' +
-                ", tag" + tag + '\'' +
+        return "QnaDTO{" +
+                "data=" + data +
                 '}';
     }
 }

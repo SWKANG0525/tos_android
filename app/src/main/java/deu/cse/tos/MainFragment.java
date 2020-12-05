@@ -221,10 +221,10 @@ public class MainFragment extends Fragment implements MainActivity.OnBackPressed
 
     @Override
     public void onBack() {
-
         // 한번 뒤로가기 버튼을 눌렀다면 Listener 를 null 로 해제해줍니다.
         activity.setOnBackPressedListener(null);
-    }
+
+   }
     // Fragment 호출 시 반드시 호출되는 오버라이드 메소드입니다.
     @Override
     // 혹시 Context 로 안되시는분은 Activity 로 바꿔보시기 바랍니다.

@@ -130,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                     Log.d("Signup","회원가입 성공");
 
                                                                     startActivity(i);
+                                                                    finish();
 
                                                                 }
 
@@ -145,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         else {
                                                             Log.d("Else","else");
                                                             startActivity(i);
+                                                            finish();
 
                                                         }
 
@@ -180,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 Log.d("TAG", "로그인 성공");
                                 startActivity(i);
+                                finish();
 
                                 // 사용자 정보 요청
                                 UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {

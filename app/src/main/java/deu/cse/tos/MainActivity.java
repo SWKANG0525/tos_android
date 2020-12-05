@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     super.onBackPressed();
                     Log.e("!!!", "onBackPressed : finish, killProcess");
-                    finish();
+                    System.exit(1);
                     android.os.Process.killProcess(android.os.Process.myPid());
                 }
             }

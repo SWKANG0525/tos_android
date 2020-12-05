@@ -33,6 +33,10 @@ public interface RetrofitService {
     @POST("tooth/todayscore")
     Call<TodayGraphDTO> postTodayGraphResult(@FieldMap HashMap<String,Object> param);
 
+    @FormUrlEncoded
+    @POST("qna/select_qnalist")
+    Call<QnaDTO> postQnAResult(@FieldMap HashMap<String,Object> param);
+
 
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,6 +55,7 @@ public class ShowQnAActivity extends AppCompatActivity {
 
         this.tv_question = (TextView)findViewById(R.id.tv_question_intent);
         this.tv_answer = (TextView)findViewById(R.id.tv_answer_intent);
+        this.tv_answer.setMovementMethod(new ScrollingMovementMethod());
         this.tv_hash = (TextView)findViewById(R.id.tv_hashtag_intent);
 
         this.tv_question.setText("Q. " + this.question);

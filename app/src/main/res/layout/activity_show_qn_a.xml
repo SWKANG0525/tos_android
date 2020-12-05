@@ -71,6 +71,7 @@
             android:paddingRight="10dp"
             android:background="@drawable/border"
             android:lineSpacingExtra="20dp"
+            android:scrollbars="vertical"
             android:textSize="15dp"
             android:text="@string/default_text"/>
 

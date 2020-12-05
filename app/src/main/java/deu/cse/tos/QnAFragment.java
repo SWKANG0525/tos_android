@@ -185,13 +185,16 @@ public class QnAFragment extends Fragment implements SwipeRefreshLayout.OnRefres
                 Log.d("myTest", "in onResponse");
                 if (response.isSuccessful()){
                     QnaDTO data = response.body();
-                    HashSet<String> tmp = new HashSet<>();
-                    for(QnaDTO.Question items : data.getData()){
-                        qnaList.add(new QnAList(items.question_name, items.answer, items.tag));
-                        tmp.add(items.tag);
-                        hashList = new ArrayList<String>(tmp);
-                    }
 
+                    HashSet<String> hashTmp = new HashSet<>();
+                    HashSet<QnAList> qnaTmp = new HashSet<>();
+                    for(QnaDTO.Question items : data.getData()){
+                        qnaTmp.add(new QnAList(items.question_name, items.answer, items.tag));
+                        hashTmp.add(items.tag);
+
+                        qnaList = new ArrayList<>(qnaTmp);
+                        hashList = new ArrayList<>(hashTmp);
+                    }
                     Log.d("myTest_data", data.toString());
                 }
                 initHashTag(view);

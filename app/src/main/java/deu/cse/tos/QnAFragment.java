@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -31,6 +32,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -147,6 +150,8 @@ public class QnAFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         this.btnSearch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                InputMethodManager mInputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                mInputMethodManager.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
                 searchData = searchEdit.getText().toString();
                 if (searchData != null) {
 //                    Toast.makeText(context, searchData, Toast.LENGTH_SHORT).show();
@@ -165,6 +170,8 @@ public class QnAFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         this.btnRefresh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                InputMethodManager mInputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                mInputMethodManager.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
                 isRefresh = true;
                 isHashTag = false;
                 onRefresh();

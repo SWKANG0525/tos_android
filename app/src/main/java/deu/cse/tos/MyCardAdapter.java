@@ -53,7 +53,6 @@ public class MyCardAdapter extends RecyclerView.Adapter<MyCardAdapter.ViewHolder
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(context,itemList.get(position).getQuestion(),Toast.LENGTH_SHORT).show();
                 qnaIntent.putExtra("question", item.getQuestion());
                 qnaIntent.putExtra("answer", item.getAnswer());
                 qnaIntent.putExtra("hashtag", item.getTag());

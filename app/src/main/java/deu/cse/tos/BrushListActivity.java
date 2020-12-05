@@ -65,7 +65,7 @@ public class BrushListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brushlist);
 
-        btn =  findViewById(R.id.floatingActionButton);
+        btn = findViewById(R.id.floatingActionButton);
         oralItems = new ArrayList<>();
         oralSuppliesAdapter = new OralSuppliesAdapter(this, oralItems, onClickItem);
         createRecyclerView();
@@ -73,7 +73,7 @@ public class BrushListActivity extends AppCompatActivity {
         oralSuppliesAdapter.notifyDataSetChanged();
         nextIntent = new Intent(this, AddBrushListActivity.class);
         getAPI();
-        btn.setOnClickListener((view)-> {
+        btn.setOnClickListener((view) -> {
             nextIntent.putExtra("itemName", "--");
             nextIntent.putExtra("buyDate", " ");
             nextIntent.putExtra("usingDate", "--");
@@ -87,15 +87,15 @@ public class BrushListActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            OralSupplies item  = oralSuppliesAdapter.getItem((int)v.getTag());
+            OralSupplies item = oralSuppliesAdapter.getItem((int) v.getTag());
             nextIntent.putExtra("itemName", item.getItemName());
-            nextIntent.putExtra("buyDate", items.get((int)v.getTag()).buy_date);
-            nextIntent.putExtra("usingDate", Integer.toString(items.get((int)v.getTag()).using_date));
+            nextIntent.putExtra("buyDate", items.get((int) v.getTag()).buy_date);
+            nextIntent.putExtra("usingDate", Integer.toString(items.get((int) v.getTag()).using_date));
             startActivity(nextIntent);
         }
     };
 
-    private void createRecyclerView(){
+    private void createRecyclerView() {
         recyclerView = findViewById(R.id.rv_oral_supplies);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
@@ -103,7 +103,7 @@ public class BrushListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
     }
 
-    public void initActionBar(){
+    public void initActionBar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
@@ -122,7 +122,7 @@ public class BrushListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout:
                 break;
             case R.id.account:
@@ -134,21 +134,21 @@ public class BrushListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getAPI(){
+    public void getAPI() {
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://113.198.235.232:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitToothService retrofitToothService = retrofit.create(RetrofitToothService.class);
         HashMap<String, Object> input = new HashMap<>();
-        input.put("hash_key",UserAccount.getInstance().getHash_key());
-        retrofitToothService.postBrushListSelectResult(input).enqueue(new Callback <BrushListDTO>() {
+        input.put("hash_key", UserAccount.getInstance().getHash_key());
+        retrofitToothService.postBrushListSelectResult(input).enqueue(new Callback<BrushListDTO>() {
             @Override
             public void onResponse(Call<BrushListDTO> call, Response<BrushListDTO> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     BrushListDTO data = response.body();
                     items = data.getData();
-                    if(items != null) {
+                    if (items != null) {
                         for (BrushListDTO.BrushDTO item : items) {
                             oralItems.add(new OralSupplies(item.remain_recommend_date, item.item_name, item.recommend_date));
                             oralSuppliesAdapter.notifyDataSetChanged();
@@ -156,9 +156,15 @@ public class BrushListActivity extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<BrushListDTO> call, Throwable t) {
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }

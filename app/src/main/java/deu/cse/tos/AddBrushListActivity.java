@@ -196,4 +196,8 @@ public class AddBrushListActivity extends AppCompatActivity {
             rb4.setTextColor(getResources().getColor(R.color.white));
         }
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -337,6 +337,11 @@ public class TimerActivity extends AppCompatActivity {
         setTime();
         Log.d("ProgressTest", "setTime = " + setTime);
     }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 }
 
 

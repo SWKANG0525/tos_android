@@ -149,4 +149,9 @@ public class SelfCheckActivity extends AppCompatActivity implements View.OnClick
 
         }
     }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 }

@@ -3,6 +3,7 @@ package deu.cse.tos;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -26,6 +27,7 @@ public class VideoActivity extends AppCompatActivity {
     ProgressBar videobar;
     int toggle = 1;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,14 +50,14 @@ public class VideoActivity extends AppCompatActivity {
         prog();
 
         Intent i = new Intent(this, SelfCheckActivity.class);
-        TextView textView = (TextView) findViewById(R.id.video_mode_txt);
+//        TextView textView = (TextView) findViewById(R.id.video_mode_txt);
         Uri uri = Uri.parse("android.resource://deu.cse.tos/" + R.raw.video_test1);
         VideoView videoView = (VideoView) findViewById(R.id.videoview);
         videoView.setVideoURI(uri);
 
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             public void onPrepared(MediaPlayer mp) {
-                textView.setText("양치를 진행하세요 !!");
+                //textView.setText("양치를 진행하세요 !!");
                 videoView.start();           // start the video
                 videoView.setVisibility(View.VISIBLE);
 
@@ -66,7 +68,7 @@ public class VideoActivity extends AppCompatActivity {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                textView.setText("양치가 끝났습니다 !!");
+                //textView.setText("양치가 끝났습니다 !!");
                 startActivity(i);
             }
         });
@@ -103,7 +105,11 @@ public class VideoActivity extends AppCompatActivity {
         t.schedule(tt, 10, 94);
 
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 }
 
 

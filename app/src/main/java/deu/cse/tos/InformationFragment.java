@@ -182,10 +182,10 @@ public class InformationFragment extends Fragment {
             public void onResponse(Call<InsightDTO> call, Response<InsightDTO> response) {
                 if(response.isSuccessful()) {
                     InsightDTO data = response.body();
-                    textView12.setText(UserAccount.getInstance().getNickname()+"님의 구강점수");
+                    textView12.setText(UserAccount.getInstance().getNickName()+"님의 구강점수");
                     textView13.setText(String.valueOf(data.getTooth_score()));
                     tv_date.setText(data.getMonth_tooth_number()+" 회");
-                    tv_name.setText(UserAccount.getInstance().getNickname());
+                    tv_name.setText(UserAccount.getInstance().getNickName());
 
 
                 }

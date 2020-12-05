@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -37,6 +38,7 @@ public class CheckResultActivity extends AppCompatActivity {
     private Context mContext = CheckResultActivity.this;
     private static final int ACTIVITY_NUM = 4;
     private static final String TAG = "CheckResultActivity";
+    private TextView tv_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,8 @@ public class CheckResultActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkresult);
-
+        tv_name = findViewById(R.id.tv_name);
+        tv_name.setText(UserAccount.getInstance().getNickName());
         BarChart mBarChart2 = (BarChart) findViewById(R.id.barchart2);
 
 
@@ -70,6 +73,7 @@ public class CheckResultActivity extends AppCompatActivity {
             public void onResponse(Call<TodayGraphDTO> call, Response<TodayGraphDTO> response) {
                 if(response.isSuccessful()) {
                     TodayGraphDTO data = response.body();
+
 
                     mBarChart2.addBar(new BarModel("아침",data.getMorning_count(), 0xFF98BFBD));
                     mBarChart2.addBar(new BarModel("점심",data.getAfternoon_count(),  0xFF98BFBD));

@@ -24,8 +24,7 @@ import java.util.TimerTask;
 public class VideoActivity extends AppCompatActivity {
     int counter = 0;
     ProgressBar videobar;
-    int toggle = 1;
-
+    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,14 +47,14 @@ public class VideoActivity extends AppCompatActivity {
         prog();
 
         Intent i = new Intent(this, SelfCheckActivity.class);
-        TextView textView = (TextView) findViewById(R.id.video_mode_txt);
-        Uri uri = Uri.parse("android.resource://deu.cse.tos/" + R.raw.video_test1);
+
+        Uri uri = Uri.parse("android.resource://deu.cse.tos/" + R.raw.tooth_video);
         VideoView videoView = (VideoView) findViewById(R.id.videoview);
         videoView.setVideoURI(uri);
 
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             public void onPrepared(MediaPlayer mp) {
-                textView.setText("양치를 진행하세요 !!");
+                //textView.setText("양치를 진행하세요 !!");
                 videoView.start();           // start the video
                 videoView.setVisibility(View.VISIBLE);
 
@@ -66,7 +65,7 @@ public class VideoActivity extends AppCompatActivity {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                textView.setText("양치가 끝났습니다 !!");
+                //textView.setText("양치가 끝났습니다 !!");
                 startActivity(i);
             }
         });
@@ -87,7 +86,6 @@ public class VideoActivity extends AppCompatActivity {
     }
         public void prog () {
             videobar = (ProgressBar) findViewById(R.id.videobar);
-
             final Timer t = new Timer();
             TimerTask tt = new TimerTask() {
                 @Override
@@ -100,7 +98,7 @@ public class VideoActivity extends AppCompatActivity {
 
         } ;
 
-        t.schedule(tt, 10, 94);
+        t.schedule(tt, 1, 1500);
 
     }
 

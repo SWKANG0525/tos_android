@@ -1,6 +1,6 @@
 # README. TO'S : 당신을 위한 치아관리 서비스
 
-## <img src=".image/슬라이드1.png" alt="슬라이드1" style="zoom:50%;" />
+## <img src="image/슬라이드1.png" alt="슬라이드1" style="zoom:50%;" />
 
 
 
